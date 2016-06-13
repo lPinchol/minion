@@ -1,0 +1,15 @@
+{
+  "name": "imagecropping",
+  "version": "1.0.0",
+  "description": "crops images",
+  "main": "crop.js",
+  "dependencies": {
+    "gm": "^1.22.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
