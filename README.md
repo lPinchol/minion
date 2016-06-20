@@ -29,3 +29,10 @@ Game logo, small shadow can be included, 206x44 transparent PNG, must be legible
 Badges:
 Take images and resize to 80x80px PNGs with a transparent background
 check if transparent image
+
+Profile Backgrounds
+Crafting a badge also grants 1 profile background for that game.
+
+Images required:
+5 Profile backgrounds, 1920 wide with variable height, JPG format smaller than 350kb
+NOTE: Transition at least the sides and bottom of the image to black so there are no visible edges to the backgrounds.
