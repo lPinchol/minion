@@ -12,9 +12,11 @@ var dstPath = process.argv[4];
 //the new image size
 var newImgWidth = process.argv[5];
 var newImgHeight = process.argv[6];
+//new image name
+var newImageName = process.argv[7];
 //the position in the image to crop from
-var newImgXPos = process.argv[7];
-var newImgYPos = process.argv[8];
+var newImgXPos = process.argv[8];
+var newImgYPos = process.argv[9];
 
 var isValidated = false;
 
@@ -85,7 +87,7 @@ function ResizeImage()
   Jimp.read(srcPath).then(function (lenna) {
       lenna.resize(w, h)            // resize
            .quality(60)                 // set png quality
-           .write(dstPath + "/reizedimage.png"); // save
+           .write(dstPath + "/" + newImageName + ".png"); // save
   }).catch(function (err) {
       console.error(err);
   });
@@ -102,7 +104,7 @@ function CropImage() {
   //crop the image
   PNGCrop.cropToStream(imgBuffer, config2, function(err, outputStream) {
     if (err) throw err;
-    outputStream.pipe(fs.createWriteStream(dstPath + '/croppedimage.png'));
+    outputStream.pipe(fs.createWriteStream(dstPath + "/" + newImageName + ".png"));
     console.log("Crop Complete: dstPath");
   });
 
