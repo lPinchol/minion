@@ -1,15 +1,27 @@
 {
-  "name": "imagecropping",
-  "version": "1.0.0",
-  "description": "crops images",
-  "main": "crop.js",
-  "dependencies": {
-    "gm": "^1.22.0"
-  },
-  "devDependencies": {},
+  "name": "game-image-cropper",
+  "version": "0.0.1",
+  "description": "cropping of images for game backends",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kinifi/Image-Cropping.git"
+  },
+  "keywords": [
+    "game",
+    "cropping"
+  ],
+  "author": "@kinifi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kinifi/Image-Cropping/issues"
+  },
+  "homepage": "https://github.com/kinifi/Image-Cropping#readme",
+  "dependencies": {
+    "jimp": "^0.2.24",
+    "png-crop": "0.0.1"
+  }
 }
