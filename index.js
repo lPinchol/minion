@@ -19,16 +19,21 @@ var newImgXPos = process.argv[8];
 var newImgYPos = process.argv[9];
 
 var isValidated = false;
+var tempDirectoryname;
+var tempDirectoryPath;
 
 //check if the srcpath and dstpath are correct
 validatePaths();
+if(!validatePaths)
+  return;
 
 if(type == "crop" || type == "c")
 {
-  if(validatePaths)
-  {
     CropImage();
-  }
+}
+else if (type == "resize" || type == "r")
+{
+    ResizeImage();
 }
 
 // printArgs();
@@ -63,16 +68,13 @@ function isFile(path)
 function makeDirectory(path)
 {
   try {
-    if(isDirectory(path))
-    {
       fs.mkdirSync(path);
-    }
-    else {
-      console.log('Not a Directory path');
-    }
   } catch(e)
   {
-    if ( e.code != 'EXIST' ) throw e;
+    if ( e.code != 'EEXIST' )
+    {
+      throw e;
+    }
   }
 }
 
@@ -83,11 +85,13 @@ function ResizeImage()
   var w = parseInt(newImgWidth);
   var h = parseInt(newImgHeight);
 
+  makeDirectory(tempDirectoryPath);
+
   // open a file called "lenna.png"
   Jimp.read(srcPath).then(function (lenna) {
       lenna.resize(w, h)            // resize
-           .quality(60)                 // set png quality
-           .write(dstPath + "/" + newImageName + ".png"); // save
+           .quality(100)                 // set png quality
+           .write(tempDirectoryPath + "/" + newImageName + "-resized" + ".png"); // save
   }).catch(function (err) {
       console.error(err);
   });
@@ -97,6 +101,8 @@ function ResizeImage()
 //crop the image
 function CropImage() {
 
+  makeDirectory(tempDirectoryPath);
+
   //create a small config
   var config2 = {width: newImgWidth, height: newImgHeight};
   //get the image from disc
@@ -104,7 +110,7 @@ function CropImage() {
   //crop the image
   PNGCrop.cropToStream(imgBuffer, config2, function(err, outputStream) {
     if (err) throw err;
-    outputStream.pipe(fs.createWriteStream(dstPath + "/" + newImageName + ".png"));
+    outputStream.pipe(fs.createWriteStream(tempDirectoryPath + "/" + newImageName + "-cropped" + ".png"));
     console.log("Crop Complete: dstPath");
   });
 
@@ -121,6 +127,9 @@ function validatePaths()
 {
   var directoryCheck = false;
   var fileCheck = false;
+
+  tempDirectoryname = newImageName;
+  tempDirectoryPath = dstPath + "/" + tempDirectoryname;
 
   if(isDirectory(dstPath) == true)
   {

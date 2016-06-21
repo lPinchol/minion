@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/kinifi/Image-Cropping#readme",
   "dependencies": {
+    "colors": "^1.1.2",
     "jimp": "^0.2.24",
-    "png-crop": "0.0.1"
+    "png-crop": "0.0.1",
+    "prompt": "^1.0.0"
   }
 }
