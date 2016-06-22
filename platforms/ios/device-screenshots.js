@@ -14,8 +14,9 @@ var prompt = require('prompt'),
     colors = require('colors'),
     ProgressBar = require('progress');
 
-var image = require('../../libs/image-manipulate');
-var bar = require('../../libs/progressbar');
+var image = require('../../libs/image-manipulate'),
+    bar = require('../../libs/progressbar'),
+    utils = require('../../libs/utils');
 
 module.exports = {
 

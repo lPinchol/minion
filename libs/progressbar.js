@@ -25,7 +25,7 @@ module.exports = {
   {
     if (bar.complete)
     {
-      console.log('\ncompleted Resizing');
+      console.log('\ncompleted Resizing'.green);
     }
   }
 

@@ -52,6 +52,13 @@ prompt.get(['Type'], function (err, result)
     iosscreenshots.ResizeFullscreenPortrait();
   }
 
+  if(result.Type == 'steam-trading-card' || result.Type == 'stc')
+  {
+    console.log('<- Steam Trading Card Creation ->'.green);
+    console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
+    tradingcards.Create();
+  }
+
 });
 
 
