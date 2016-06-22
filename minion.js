@@ -2,7 +2,12 @@ var prompt = require('prompt'),
     fs = require('fs'),
     PNGCrop = require('png-crop'),
     Jimp = require("jimp"),
-    colors = require('colors');
+    colors = require('colors'),
+    ProgressBar = require('progress');
+
+
+//create a progress bar
+var bar;
 
 //
 // Start the prompt
@@ -60,14 +65,19 @@ function PromptResizeImage()
 
     prompt.get(TypeSchema, function (err, result)
     {
+      //set the bar length
+      bar = new ProgressBar('Resizing [:bar]', { total:  result.ImageSource.length, width: 50});
+
       //iterate through the array of images and resize them all
       for (var i = 0; i < result.ImageSource.length; i++)
       {
+
         ResizeImage(result.ImageName.toString().replace(/ /g,'') + i,
                   result.Width.toString().replace(/ /g,''),
                   result.Height.toString().replace(/ /g,''),
                   result.Destination.toString().replace(/ /g,''),
                   result.ImageSource[i].toString().replace(/ /g,''));
+
       }
 
     });
@@ -107,7 +117,10 @@ function PromptCropImage()
   //
   prompt.get(TypeSchema, function (err, result)
   {
-    //iterate through the array of images and resize them all
+    //set the bar length
+    bar = new ProgressBar('Cropping [:bar]', { total:  result.ImageSource.length, width: 50});
+
+    // iterate through the array of images and resize them all
     for (var i = 0; i < result.ImageSource.length; i++)
     {
       CropImage(result.ImageName.toString().replace(/ /g,'') + i,
@@ -116,6 +129,7 @@ function PromptCropImage()
                 result.Destination.toString().replace(/ /g,''),
                 result.ImageSource[i].toString().replace(/ /g,''));
     }
+  });
 }
 
 //checks is a path is a directory or not
@@ -170,7 +184,11 @@ function ResizeImage(newImageName, newImgWidth, newImgHeight, dstPath, srcPath)
       lenna.resize(w, h)            // resize
            .quality(100)                 // set png quality
            .write(dstPath + "/" + newImageName + "/" + newImageName + "-resized" + ".png"); // save
-           console.log('Resizing Complete: ' + dstPath + "/" + newImageName + "/" + newImageName + "-resized" + ".png");
+
+          //tick the progress bar
+          bar.tick();
+          checkIfProgressBarCompleted();
+
   }).catch(function (err) {
       console.error(err.red);
   });
@@ -191,7 +209,19 @@ function CropImage(newImageName, newImgWidth, newImgHeight, dstPath, srcPath) {
   PNGCrop.cropToStream(imgBuffer, config2, function(err, outputStream) {
     if (err) throw err;
     outputStream.pipe(fs.createWriteStream(dstPath + "/" + newImageName + "/" + newImageName + "-cropped" + ".png"));
-    console.log("Crop Complete: " + dstPath + "/" + newImageName + "/" + newImageName + "-cropped" + ".png");
+
+    //tick the progress bar
+    bar.tick();
+    checkIfProgressBarCompleted();
+
   });
 
+}
+
+function checkIfProgressBarCompleted()
+{
+  if (bar.complete)
+  {
+    console.log('\ncompleted Resizing\n');
+  }
 }
