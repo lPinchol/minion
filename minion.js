@@ -84,8 +84,6 @@ function PromptResizeImage()
 
     prompt.get(TypeSchema, function (err, result)
     {
-      //set the bar length
-      bar = new ProgressBar('Resizing [:bar]', { total:  result.ImageSource.length, width: 50});
 
       //iterate through the array of images and resize them all
       for (var i = 0; i < result.ImageSource.length; i++)
@@ -96,9 +94,6 @@ function PromptResizeImage()
                   result.Height.toString().replace(/ /g,''),
                   result.Destination.toString().replace(/ /g,''),
                   result.ImageSource[i].toString().replace(/ /g,''));
-        //tick the progress bar
-        bar.tick();
-        checkIfProgressBarCompleted();
 
       }
 
@@ -139,8 +134,6 @@ function PromptCropImage()
   //
   prompt.get(TypeSchema, function (err, result)
   {
-    //set the bar length
-    bar = new ProgressBar('Cropping [:bar]', { total:  result.ImageSource.length, width: 50});
 
     // iterate through the array of images and resize them all
     for (var i = 0; i < result.ImageSource.length; i++)
@@ -150,9 +143,6 @@ function PromptCropImage()
                 result.Height.toString().replace(/ /g,''),
                 result.Destination.toString().replace(/ /g,''),
                 result.ImageSource[i].toString().replace(/ /g,''));
-      //tick the progress bar
-      bar.tick();
-      checkIfProgressBarCompleted();
 
     }
   });
@@ -193,13 +183,5 @@ function makeDirectory(path)
     {
       throw e.red;
     }
-  }
-}
-
-function checkIfProgressBarCompleted()
-{
-  if (bar.complete)
-  {
-    console.log('\ncompleted Resizing\n');
   }
 }

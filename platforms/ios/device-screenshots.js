@@ -15,12 +15,9 @@ var prompt = require('prompt'),
     ProgressBar = require('progress');
 
 var image = require('../../libs/image-manipulate');
-
-//create a progress bar
-var bar;
+var bar = require('../../libs/progressbar');
 
 module.exports = {
-
 
 
   ResizeFullscreenPortrait: function() {
@@ -40,8 +37,8 @@ module.exports = {
 
       prompt.get(TypeSchema, function (err, result)
       {
-        //set the bar length - multiple by 6 for 6 devices including 2 ipads
-        bar = new ProgressBar('Resizing [:bar]', { total:  result.ImageSource.length*6, width: 50});
+        //setup the progress bar
+        bar.setup('iOS Resizing', result.ImageSource.length * 6);
 
         // 3.5 inch
         //iterate through the array of images and resize them all
@@ -53,22 +50,17 @@ module.exports = {
                     960,
                     result.Destination.toString().replace(/ /g,''),
                     result.ImageSource[i].toString().replace(/ /g,''));
-          //tick the progress bar
-          bar.tick();
         }
 
         //4 inch
         // 640 x 1136 pixels for portrait (full screen) maximum
         for (var i = 0; i < result.ImageSource.length; i++)
         {
-
           image.ResizeImage("4-Inch-Retina-Display-"  + i,
                     640,
                     1136,
                     result.Destination.toString().replace(/ /g,''),
                     result.ImageSource[i].toString().replace(/ /g,''));
-          //tick the progress bar
-          bar.tick();
         }
 
         // 4.7-inch Retina screenshot
@@ -80,8 +72,6 @@ module.exports = {
                     1334,
                     result.Destination.toString().replace(/ /g,''),
                     result.ImageSource[i].toString().replace(/ /g,''));
-          //tick the progress bar
-          bar.tick();
         }
 
         // 5.5 inch
@@ -93,8 +83,6 @@ module.exports = {
                     2208,
                     result.Destination.toString().replace(/ /g,''),
                     result.ImageSource[i].toString().replace(/ /g,''));
-          //tick the progress bar
-          bar.tick();
         }
 
         // iPad Screenshots
@@ -106,8 +94,6 @@ module.exports = {
                     2048,
                     result.Destination.toString().replace(/ /g,''),
                     result.ImageSource[i].toString().replace(/ /g,''));
-          //tick the progress bar
-          bar.tick();
         }
 
         // iPad Pro Screenshots
@@ -119,14 +105,9 @@ module.exports = {
                     2732,
                     result.Destination.toString().replace(/ /g,''),
                     result.ImageSource[i].toString().replace(/ /g,''));
-          //tick the progress bar
-          bar.tick();
         }
 
-        if (bar.complete)
-        {
-          console.log('\ncompleted Resizing\n' + result.Destination);
-        }
+        bar.isComplete();
 
       });
 

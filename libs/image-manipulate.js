@@ -5,6 +5,7 @@ var prompt = require('prompt'),
     colors = require('colors'),
     ProgressBar = require('progress');
 
+var bar = require('./progressbar');
 
 module.exports = {
 
@@ -20,6 +21,7 @@ module.exports = {
         lenna.resize(w, h)            // resize
              .quality(100)                 // set png quality
              .write(dstPath + "/" + newImageName + "-resized" + ".png"); // save
+             bar.tick();
     }).catch(function (err) {
         console.error(err.red);
     });
@@ -40,7 +42,7 @@ module.exports = {
     PNGCrop.cropToStream(imgBuffer, config2, function(err, outputStream) {
       if (err) throw err;
       outputStream.pipe(fs.createWriteStream(dstPath + "/" + newImageName + "-cropped" + ".png"));
-
+      bar.tick();
     });
 
   }
