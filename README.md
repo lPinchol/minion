@@ -1,6 +1,8 @@
 # Minion
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
+[![License](https://i.imgur.com/JlOU91p.jpg)]()
+
 
 ####This tool is used to create the following: 
 - Create iOS Screenshots for all devices from 1-unlimited images. 
