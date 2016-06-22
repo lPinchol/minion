@@ -6,13 +6,11 @@ var prompt = require('prompt'),
     ProgressBar = require('progress');
 
 //get all the tools needed for steam
-var image = require('./libs/image-manipulate');
-var tradingcards = require('./platforms/steam/tradingcards');
-var badges = require('./platforms/steam/badges');
-var iosscreenshots = require('./platforms/ios/device-screenshots');
-
-//create a progress bar
-var bar;
+var image = require('./libs/image-manipulate'),
+tradingcards = require('./platforms/steam/tradingcards'),
+badges = require('./platforms/steam/badges'),
+iosscreenshots = require('./platforms/ios/device-screenshots'),
+bar = require('./libs/progressbar');
 
 //
 // Start the prompt
@@ -92,6 +90,9 @@ function PromptResizeImage()
     prompt.get(TypeSchema, function (err, result)
     {
 
+      // create the ProgressBar
+      bar.setup('Image Resize ', result.ImageSource.length);
+
       //iterate through the array of images and resize them all
       for (var i = 0; i < result.ImageSource.length; i++)
       {
@@ -124,6 +125,19 @@ function PromptCropImage()
           type: 'integer',
           required: true
         },
+        CropXPosition: {
+          type: 'integer',
+          required: true
+        },
+        CropYPosition: {
+          type: 'integer',
+          required: true
+        },
+        Quality: {
+          type: 'integer',
+          required: true,
+          quality: 100
+        },
         Destination: {
           type: 'string',
           required: true
@@ -142,6 +156,9 @@ function PromptCropImage()
   prompt.get(TypeSchema, function (err, result)
   {
 
+    // create the ProgressBar
+    bar.setup('Image Crop ', result.ImageSource.length);
+
     // iterate through the array of images and resize them all
     for (var i = 0; i < result.ImageSource.length; i++)
     {
@@ -149,8 +166,10 @@ function PromptCropImage()
                 result.Width.toString().replace(/ /g,''),
                 result.Height.toString().replace(/ /g,''),
                 result.Destination.toString().replace(/ /g,''),
-                result.ImageSource[i].toString().replace(/ /g,''));
-
+                result.ImageSource[i].toString().replace(/ /g,''),
+                result.Quality,
+                result.CropXPosition,
+                result.CropYPosition);
     }
   });
 }
