@@ -5,6 +5,9 @@ var prompt = require('prompt'),
     colors = require('colors'),
     ProgressBar = require('progress');
 
+//get all the tools needed for steam
+var tradingcards = require('./steam/tradingcards');
+var badges = require('./steam/badges');
 
 //create a progress bar
 var bar;
@@ -15,7 +18,7 @@ var bar;
 prompt.start();
 
 //display the selections here
-console.log('Select One [Long Name] - [Short Name]: \n crop - c, resize - r, steam-trading-card - stc, badges - b, profile-background - pb'.blue);
+console.log('Select One [Long Name] - [Short Name]: \n crop - c, resize - r \n steam-trading-card - stc \n badges - b \n profile-background - pb'.blue);
 prompt.get(['Type'], function (err, result)
 {
 
