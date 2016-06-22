@@ -6,8 +6,10 @@ var prompt = require('prompt'),
     ProgressBar = require('progress');
 
 //get all the tools needed for steam
-var tradingcards = require('./steam/tradingcards');
-var badges = require('./steam/badges');
+var image = require('./libs/image-manipulate');
+var tradingcards = require('./platforms/steam/tradingcards');
+var badges = require('./platforms/steam/badges');
+var iosscreenshots = require('./platforms/ios/device-screenshots');
 
 //create a progress bar
 var bar;
@@ -18,7 +20,14 @@ var bar;
 prompt.start();
 
 //display the selections here
-console.log('Select One [Long Name] - [Short Name]: \n crop - c, resize - r \n steam-trading-card - stc \n badges - b \n profile-background - pb'.blue);
+console.log('Select One [Long Name] - [Short Name]: \n'.blue +
+            'crop - c, \n'.blue +
+            'resize - r \n'.blue +
+            'steam-trading-card - stc \n'.blue +
+            'badges - b \n'.blue +
+            'ios-vertical - iosv \n'.blue +
+            'profile-background - pb'.blue);
+
 prompt.get(['Type'], function (err, result)
 {
 
@@ -34,6 +43,13 @@ prompt.get(['Type'], function (err, result)
     console.log('<- Resize Image ->'.blue);
     console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     PromptResizeImage();
+  }
+
+  if(result.Type == 'ios-vertical' || result.Type == 'iosv')
+  {
+    console.log('<- iOS Vertical Resize Image ->'.blue);
+    console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
+    iosscreenshots.ResizeFullscreenPortrait();
   }
 
 });
@@ -75,11 +91,14 @@ function PromptResizeImage()
       for (var i = 0; i < result.ImageSource.length; i++)
       {
 
-        ResizeImage(result.ImageName.toString().replace(/ /g,'') + i,
+        image.ResizeImage(result.ImageName.toString().replace(/ /g,'') + i,
                   result.Width.toString().replace(/ /g,''),
                   result.Height.toString().replace(/ /g,''),
                   result.Destination.toString().replace(/ /g,''),
                   result.ImageSource[i].toString().replace(/ /g,''));
+        //tick the progress bar
+        bar.tick();
+        checkIfProgressBarCompleted();
 
       }
 
@@ -126,11 +145,15 @@ function PromptCropImage()
     // iterate through the array of images and resize them all
     for (var i = 0; i < result.ImageSource.length; i++)
     {
-      CropImage(result.ImageName.toString().replace(/ /g,'') + i,
+      image.CropImage(result.ImageName.toString().replace(/ /g,'') + i,
                 result.Width.toString().replace(/ /g,''),
                 result.Height.toString().replace(/ /g,''),
                 result.Destination.toString().replace(/ /g,''),
                 result.ImageSource[i].toString().replace(/ /g,''));
+      //tick the progress bar
+      bar.tick();
+      checkIfProgressBarCompleted();
+
     }
   });
 }
@@ -171,54 +194,6 @@ function makeDirectory(path)
       throw e.red;
     }
   }
-}
-
-//resize the image
-function ResizeImage(newImageName, newImgWidth, newImgHeight, dstPath, srcPath)
-{
-  // make sure we are using ints
-  var w = parseInt(newImgWidth);
-  var h = parseInt(newImgHeight);
-
-  makeDirectory(dstPath + "/" + newImageName);
-
-  // open a file called "lenna.png"
-  Jimp.read(srcPath).then(function (lenna) {
-      lenna.resize(w, h)            // resize
-           .quality(100)                 // set png quality
-           .write(dstPath + "/" + newImageName + "/" + newImageName + "-resized" + ".png"); // save
-
-          //tick the progress bar
-          bar.tick();
-          checkIfProgressBarCompleted();
-
-  }).catch(function (err) {
-      console.error(err.red);
-  });
-
-
-}
-
-//crop the image
-function CropImage(newImageName, newImgWidth, newImgHeight, dstPath, srcPath) {
-
-  makeDirectory(dstPath + "/" + newImageName);
-
-  //create a small config
-  var config2 = { width: newImgWidth, height: newImgHeight };
-  //get the image from disc
-  var imgBuffer = fs.readFileSync(srcPath);
-  //crop the image
-  PNGCrop.cropToStream(imgBuffer, config2, function(err, outputStream) {
-    if (err) throw err;
-    outputStream.pipe(fs.createWriteStream(dstPath + "/" + newImageName + "/" + newImageName + "-cropped" + ".png"));
-
-    //tick the progress bar
-    bar.tick();
-    checkIfProgressBarCompleted();
-
-  });
-
 }
 
 function checkIfProgressBarCompleted()
