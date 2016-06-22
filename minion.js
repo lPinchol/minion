@@ -1,6 +1,5 @@
 var prompt = require('prompt'),
     fs = require('fs'),
-    PNGCrop = require('png-crop'),
     Jimp = require("jimp"),
     colors = require('colors'),
     ProgressBar = require('progress');
