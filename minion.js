@@ -4,9 +4,6 @@ var prompt = require('prompt'),
     Jimp = require("jimp"),
     colors = require('colors');
 
-
-
-
 //
 // Start the prompt
 //
@@ -20,12 +17,14 @@ prompt.get(['Type'], function (err, result)
   if(result.Type == 'c' || result.Type == 'crop')
   {
     console.log('<- Crop Image ->'.blue);
+    console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     PromptCropImage();
   }
 
   if(result.Type == 'r' || result.Type == 'resize')
   {
     console.log('<- Resize Image ->'.blue);
+    console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     PromptResizeImage();
   }
 
@@ -53,7 +52,7 @@ function PromptResizeImage()
           required: true
         },
         ImageSource: {
-          type: 'string',
+          type: 'array',
           required: true
         }
       }
@@ -61,11 +60,16 @@ function PromptResizeImage()
 
     prompt.get(TypeSchema, function (err, result)
     {
-      ResizeImage(result.ImageName.toString().replace(/ /g,''),
-                result.Width.toString().replace(/ /g,''),
-                result.Height.toString().replace(/ /g,''),
-                result.Destination.toString().replace(/ /g,''),
-                result.ImageSource.toString().replace(/ /g,''));
+      //iterate through the array of images and resize them all
+      for (var i = 0; i < result.ImageSource.length; i++)
+      {
+        ResizeImage(result.ImageName.toString().replace(/ /g,'') + i,
+                  result.Width.toString().replace(/ /g,''),
+                  result.Height.toString().replace(/ /g,''),
+                  result.Destination.toString().replace(/ /g,''),
+                  result.ImageSource[i].toString().replace(/ /g,''));
+      }
+
     });
 
 }
@@ -91,7 +95,7 @@ function PromptCropImage()
           required: true
         },
         ImageSource: {
-          type: 'string',
+          type: 'array',
           required: true
         }
       }
@@ -103,12 +107,15 @@ function PromptCropImage()
   //
   prompt.get(TypeSchema, function (err, result)
   {
-    CropImage(result.ImageName.toString().replace(/ /g,''),
-              result.Width.toString().replace(/ /g,''),
-              result.Height.toString().replace(/ /g,''),
-              result.Destination.toString().replace(/ /g,''),
-              result.ImageSource.toString().replace(/ /g,''));
-  });
+    //iterate through the array of images and resize them all
+    for (var i = 0; i < result.ImageSource.length; i++)
+    {
+      CropImage(result.ImageName.toString().replace(/ /g,'') + i,
+                result.Width.toString().replace(/ /g,''),
+                result.Height.toString().replace(/ /g,''),
+                result.Destination.toString().replace(/ /g,''),
+                result.ImageSource[i].toString().replace(/ /g,''));
+    }
 }
 
 //checks is a path is a directory or not
