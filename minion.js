@@ -6,10 +6,10 @@ var prompt = require('prompt'),
 
 //get all the tools needed for steam
 var image = require('./libs/image-manipulate'),
-tradingcards = require('./platforms/steam/tradingcards'),
-badges = require('./platforms/steam/badges'),
-iosscreenshots = require('./platforms/ios/device-screenshots'),
-bar = require('./libs/progressbar');
+    tradingcards = require('./platforms/steam/tradingcards'),
+    badges = require('./platforms/steam/badges'),
+    iosscreenshots = require('./platforms/ios/device-screenshots'),
+    bar = require('./libs/progressbar');
 
 //
 // Start the prompt
@@ -23,6 +23,7 @@ console.log('Select One [Long Name] - [Short Name]: \n'.blue +
             'steam-trading-card - stc \n'.blue +
             'badges - b \n'.blue +
             'ios-vertical - iosv \n'.blue +
+            'ios-horizontal - iosh \n'.blue +
             'profile-background - pb'.blue);
 
 prompt.get(['Type'], function (err, result)
@@ -49,11 +50,26 @@ prompt.get(['Type'], function (err, result)
     iosscreenshots.ResizeFullscreenPortrait();
   }
 
+  if(result.Type == 'ios-horizontal' || result.Type == 'iosh')
+  {
+    console.log('<- iOS Horizontal Resize Image ->'.blue);
+    console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
+    iosscreenshots.ResizeFullscreenLandscape();
+  }
+
+
   if(result.Type == 'steam-trading-card' || result.Type == 'stc')
   {
     console.log('<- Steam Trading Card Creation ->'.green);
     console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     tradingcards.Create();
+  }
+
+  if(result.Type == 'steam-badges' || result.Type == 'b')
+  {
+    console.log('<- Steam Badges ->'.green);
+    console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
+    badges.Create();
   }
 
 });
