@@ -23,11 +23,41 @@ module.exports = {
 
     var TypeSchema = {
         properties: {
+          ImageName: {
+            type: 'string',
+            required: true
+          },
+          CropXPosition: {
+            message: 'The X position in the picture to start cropping from',
+            type: 'integer',
+            required: true
+          },
+          CropYPosition: {
+            message: 'The Y position in the picture to start cropping from',
+            type: 'integer',
+            required: true
+          },
+          ExportType: {
+            message: 'jpg or png. No DOT required',
+            type: 'string',
+            required: true
+          },
+          LargeImageQuality: {
+            type: 'integer',
+            required: true,
+            quality: 100
+          },
+          SmallImageQuality: {
+            type: 'integer',
+            required: true,
+            quality: 100
+          },
           Destination: {
             type: 'string',
             required: true
           },
           ImageSource: {
+            message: 'Control+C to stop adding pictures',
             type: 'array',
             required: true
           }
@@ -45,22 +75,31 @@ module.exports = {
         for (var i = 0; i < result.ImageSource.length; i++)
         {
 
+          // ResizeImage (newImageName, newImgWidth, newImgHeight, dstPath, srcPath, outputQuality, exportimagetype)
           image.ResizeImage("Large-Card-Images-"  + i,
                     1920,
                     1080,
                     result.Destination.toString().replace(/ /g,''),
-                    result.ImageSource[i].toString().replace(/ /g,''));
+                    result.ImageSource[i].toString().replace(/ /g,''),
+                    result.LargeImageQuality,
+                    result.ExportType
+                    );
         }
 
         //Make the actual badge images
+        // CropImage: function (newImageName, newImgWidth, newImgHeight, dstPath, srcPath, imagequality, cropPosX, cropPosY)
         for (var i = 0; i < result.ImageSource.length; i++)
         {
 
-          image.ResizeImage("Small-Card-Images-"  + i,
-                    206,
-                    184,
-                    result.Destination.toString().replace(/ /g,''),
-                    result.ImageSource[i].toString().replace(/ /g,''));
+          image.CropImage("Small-Card-Images-"  + i,
+                          206,
+                          184,
+                          result.Destination.toString().replace(/ /g,''),
+                          result.ImageSource[i].toString().replace(/ /g,''),
+                          result.SmallImageQuality,
+                          result.CropXPosition,
+                          result.CropYPosition,
+                          result.ExportType);
         }
 
         bar.isComplete();
