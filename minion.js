@@ -8,6 +8,7 @@ var prompt = require('prompt'),
 var image = require('./libs/image-manipulate'),
     tradingcards = require('./platforms/steam/tradingcards'),
     badges = require('./platforms/steam/badges'),
+    emotions = require('./platforms/steam/emotions'),
     iosscreenshots = require('./platforms/ios/device-screenshots'),
     bar = require('./libs/progressbar');
 
@@ -21,6 +22,7 @@ console.log('Select One [Long Name] - [Short Name]: \n'.blue +
             'crop - c, \n'.blue +
             'resize - r \n'.blue +
             'steam-trading-card - stc \n'.blue +
+            'steam-emotions - ste \n'.blue +
             'badges - b \n'.blue +
             'ios-vertical - iosv \n'.blue +
             'ios-horizontal - iosh \n'.blue +
@@ -35,41 +37,46 @@ prompt.get(['Type'], function (err, result)
     console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     PromptCropImage();
   }
-
-  if(result.Type == 'r' || result.Type == 'resize')
+  else if(result.Type == 'r' || result.Type == 'resize')
   {
     console.log('<- Resize Image ->'.blue);
     console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     PromptResizeImage();
   }
-
-  if(result.Type == 'ios-vertical' || result.Type == 'iosv')
+  else if(result.Type == 'ios-vertical' || result.Type == 'iosv')
   {
     console.log('<- iOS Vertical Resize Image ->'.blue);
     console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     iosscreenshots.ResizeFullscreenPortrait();
   }
-
-  if(result.Type == 'ios-horizontal' || result.Type == 'iosh')
+  else if(result.Type == 'ios-horizontal' || result.Type == 'iosh')
   {
     console.log('<- iOS Horizontal Resize Image ->'.blue);
     console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     iosscreenshots.ResizeFullscreenLandscape();
   }
-
-
-  if(result.Type == 'steam-trading-card' || result.Type == 'stc')
+  else if(result.Type == 'steam-trading-card' || result.Type == 'stc')
   {
     console.log('<- Steam Trading Card Creation ->'.green);
     console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     tradingcards.Create();
   }
-
-  if(result.Type == 'steam-badges' || result.Type == 'b')
+  else if(result.Type == 'steam-badges' || result.Type == 'stb')
   {
     console.log('<- Steam Badges ->'.green);
     console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
     badges.Create();
+  }
+  else if(result.Type == 'steam-emotions' || result.Type == 'ste')
+  {
+    console.log('<- Steam Emotions ->'.green);
+    console.log('Pressing Control+C cancels the Multiple ImageSource Prompts'.blue);
+    emotions.Create();
+  }
+  else
+  {
+    console.log('Command Does Not Exist.');
+    process.exit(0);
   }
 
 });

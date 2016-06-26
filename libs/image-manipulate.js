@@ -15,13 +15,6 @@ module.exports = {
     var w = parseInt(newImgWidth);
     var h = parseInt(newImgHeight);
 
-
-    //check if the user passed a supported image type to export to
-    if(exportimagetype.toLowerCase() != 'jpg' || exportimagetype.toLowerCase() != 'png')
-    {
-      exportimagetype = 'jpg';
-    }
-
     //check if quality was changed
     if(outputQuality == null || outputQuality == 'undefined' || outputQuality == 0 || outputQuality > 100)
     {
