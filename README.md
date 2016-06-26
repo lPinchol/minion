@@ -3,10 +3,17 @@
 
 [![License](https://i.imgur.com/JlOU91p.jpg)]()
 
+Making a game on Steam is hard. This tool helps you with some of the requirements needed for publishing your game on Steam.
 
-####This tool is used to create the following: 
-- Create iOS Screenshots for all devices from 1-unlimited images. 
-- Create Steam Trading Cards from Large Images (see Valve Docs for more info)
+#### Steam Game Creation Tools: 
+- Steam Trading Cards
+    - Large Images (Images displayed when a card is clicked)
+    - Small Images (Images that display on the card)
+- Steam Emotions
+  - Large Images
+  - Small Images
+- Steam Badges
+  - Resizes an image to the appropriate badge size
 - Resize Images in Batches
 - Crop Images in Batches
 
@@ -17,7 +24,7 @@
 4. Minion will prompt you with options. Type in what you want and follow the instructions
 
 ####Important Note
-When resizing an image, this tool will not keep aspec ratios. Keep this in mind when resizing, or creating iOS Screenshots
+This tool assumes the image you are giving it is the same aspect ratio as the image its outputting. Stretching of the image can occur if not done correctly.
 
 ####Known Bugs
 - Spaces in ImageNames. Take them out for now
