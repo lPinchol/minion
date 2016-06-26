@@ -23,10 +23,9 @@ console.log('Select One [Long Name] - [Short Name]: \n'.blue +
             'resize - r \n'.blue +
             'steam-trading-card - stc \n'.blue +
             'steam-emotions - ste \n'.blue +
-            'badges - b \n'.blue +
+            'Steam-badges - b \n'.blue +
             'ios-vertical - iosv \n'.blue +
-            'ios-horizontal - iosh \n'.blue +
-            'profile-background - pb'.blue);
+            'ios-horizontal - iosh \n'.blue);
 
 prompt.get(['Type'], function (err, result)
 {
