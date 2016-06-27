@@ -1,14 +1,15 @@
 {
-  "name": "game-image-cropper",
-  "version": "0.0.1",
+  "name": "minion",
+  "version": "0.0.2",
   "description": "cropping of images for game backends",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron .",
+    "minion": "minion.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kinifi/Image-Cropping.git"
+    "url": "git+https://github.com/kinifi/minion.git"
   },
   "keywords": [
     "game",
@@ -17,11 +18,12 @@
   "author": "@kinifi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kinifi/Image-Cropping/issues"
+    "url": "https://github.com/kinifi/minion/issues"
   },
-  "homepage": "https://github.com/kinifi/Image-Cropping#readme",
+  "homepage": "https://github.com/kinifi/minion#readme",
   "dependencies": {
     "colors": "^1.1.2",
+    "electron-prebuilt": "^1.2.5",
     "jimp": "^0.2.24",
     "progress": "^1.1.8",
     "prompt": "^1.0.0"
