@@ -2,9 +2,8 @@
   "name": "minion",
   "version": "0.0.2",
   "description": "cropping of images for game backends",
-  "main": "main.js",
+  "main": "minion.js",
   "scripts": {
-    "start": "electron .",
     "minion": "minion.js"
   },
   "repository": {
@@ -23,7 +22,6 @@
   "homepage": "https://github.com/kinifi/minion#readme",
   "dependencies": {
     "colors": "^1.1.2",
-    "electron-prebuilt": "^1.2.5",
     "jimp": "^0.2.24",
     "progress": "^1.1.8",
     "prompt": "^1.0.0"

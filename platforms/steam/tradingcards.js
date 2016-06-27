@@ -76,7 +76,7 @@ module.exports = {
         {
 
           // ResizeImage (newImageName, newImgWidth, newImgHeight, dstPath, srcPath, outputQuality, exportimagetype)
-          image.ResizeImage("Large-Card-Images-"  + i,
+          image.ResizeImage(result.ImageName + "-l-card-"  + i,
                     1920,
                     1080,
                     result.Destination.toString().replace(/ /g,''),
@@ -91,7 +91,7 @@ module.exports = {
         for (var i = 0; i < result.ImageSource.length; i++)
         {
 
-          image.CropImage("Small-Card-Images-"  + i,
+          image.CropImage(result.ImageName + "-s-card-"  + i,
                           206,
                           184,
                           result.Destination.toString().replace(/ /g,''),
