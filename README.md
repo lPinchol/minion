@@ -3,28 +3,25 @@
 
 [![License](https://i.imgur.com/JlOU91p.jpg)]()
 
-Making a game on Steam is hard. This tool helps you with some of the requirements needed for publishing your game on Steam.
+Hacer un juego en Steam es difícil. Esta herramienta te ayuda con algunos de los requisitos necesarios para publicar tu juego en Steam.
 
-#### Steam Game Creation Tools: 
+#### Herramientas de creación de juegos de Steam: 
 - Steam Trading Cards
-    - Large Images (Images displayed when a card is clicked)
-    - Small Images (Images that display on the card)
+    - Large Images (Imágenes visualizadas cuando se hace clic en una tarjeta)
+    - Small Images (Imágenes que aparecen en la tarjeta)
 - Steam Emotions
   - Large Images
   - Small Images
 - Steam Badges
-  - Resizes an image to the appropriate badge size
+  - Cambia el tamaño de una imagen al tamaño de credencial adecuado
 - Resize Images in Batches
 - Crop Images in Batches
 
-####Installation
-1. Download the latest Node JS
-2. Download Image-Cropping from Github or git clone https://github.com/kinifi/minion.git
-3. From Command Prompt type: node minion
-4. Minion will prompt you with options. Type in what you want and follow the instructions
+####Instalacion
+1. Descargar la ultima version de Node JS
+2. Descargar Image-Cropping de Github o clon git https://github.com/lPinchol/minion.git
+3. Desde el símbolo del sistema, escriba: node minion
+4. Minion le pedirá opciones. Escriba lo que desea y siga las instrucciones
 
-####Important Note
-This tool assumes the image you are giving it is the same aspect ratio as the image its outputting. Stretching of the image can occur if not done correctly.
-
-####Known Bugs
-- Spaces in ImageNames. Take them out for now
+####Nota Importante
+Esta herramienta supone que la imagen que se le da, tiene la misma relación de aspecto que la imagen de su salida. El estiramiento de la imagen puede ocurrir si no se hace correctamente.
